@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f4ee">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="汉语 карточки">
+<link rel="manifest" href="manifest.webmanifest">
+<title>汉语 — китайские карточки</title>
+<style>
+:root{--bg:#f7f4ee;--card:#fffdf9;--ink:#22231f;--muted:#77766f;--line:#e7e1d7;--accent:#176b55;--accent2:#e2f1e9;--warn:#fff0d9;--red:#fae8e5;--shadow:0 8px 28px rgba(37,35,28,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 16px calc(24px + env(safe-area-inset-bottom));}
+main{max-width:650px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;padding:22px 2px 14px}.brand{font-size:22px;font-weight:800;letter-spacing:-.5px}.brand small{display:block;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0;margin-top:3px}.pill{font-size:12px;background:var(--accent2);color:var(--accent);padding:7px 10px;border-radius:99px;font-weight:700}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#ebe6dc;padding:5px;border-radius:15px;margin:8px 0 18px}nav button{border:0;background:transparent;color:#6d6b64;border-radius:11px;padding:11px 3px;font-size:13px;font-weight:700}nav button.active{background:white;color:var(--ink);box-shadow:0 2px 8px #0000000a}
+.panel{display:none}.panel.active{display:block}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}.stat,.card,.section{background:var(--card);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}.stat{padding:14px 12px}.stat b{display:block;font-size:24px;letter-spacing:-.5px}.stat span{font-size:12px;color:var(--muted)}.card{padding:24px 18px;text-align:center;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800}.hanzi{font-size:70px;line-height:1.2;margin:15px 0 7px;font-weight:600}.pinyin{font-size:19px;color:var(--accent);font-weight:700}.meaning{font-size:24px;font-weight:750;margin:16px 0 8px}.example{color:var(--muted);font-size:14px;line-height:1.55;max-width:320px}.hint{font-size:13px;color:var(--muted);margin-top:18px}.btn{border:0;border-radius:13px;padding:14px 12px;font-size:14px;font-weight:750;cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:#efebe3;color:var(--ink)}.danger{background:var(--red);color:#8b3329}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.rating-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.rating-buttons button{padding:12px 4px;font-size:12px}.rating-buttons .again{background:var(--red);color:#8b3329}.rating-buttons .hard{background:var(--warn);color:#815100}.rating-buttons .good{background:var(--accent2);color:var(--accent)}.rating-buttons .easy{background:#e6ebff;color:#314e9b}.section{padding:18px;margin-bottom:12px}.section h2{font-size:17px;margin:0 0 13px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field textarea{width:100%;padding:13px;border:1px solid var(--line);background:#fff;border-radius:11px;font:inherit;font-size:15px;color:var(--ink)}.field textarea{min-height:76px;resize:vertical}.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.note{font-size:13px;line-height:1.5;color:var(--muted)}.wordlist{display:flex;flex-direction:column;gap:8px}.word{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border:1px solid var(--line);border-radius:13px;background:white}.word strong{font-size:22px}.word .details{flex:1;min-width:0}.word small{display:block;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}.word button{border:0;background:var(--red);color:#8b3329;border-radius:9px;padding:8px 10px;font-weight:700}.empty{padding:30px 12px;text-align:center;color:var(--muted)}.toast{position:fixed;left:16px;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));max-width:600px;margin:auto;background:#20231f;color:#fff;padding:13px 16px;border-radius:13px;font-size:14px;display:none;z-index:10}.filelabel{display:block;text-align:center;padding:14px;background:#efebe3;border-radius:13px;font-weight:750;cursor:pointer}.filelabel input{display:none}.smallactions{display:flex;gap:8px;flex-wrap:wrap}.smallactions .btn{flex:1;min-width:120px}.progress{height:7px;border-radius:9px;background:#ebe6dc;overflow:hidden;margin:12px 0 4px}.progress div{height:100%;background:var(--accent);width:0%}.footer{text-align:center;font-size:11px;color:#98958c;padding:20px 0 4px}
+@media(min-width:560px){body{padding-left:24px;padding-right:24px}.card{padding:30px}.hanzi{font-size:82px}}
+</style>
+</head>
+<body>
+<main>
+<header class="top"><div class="brand">汉语 карточки<small>Твой личный тренажёр китайского</small></div><div class="pill" id="todayPill">Сегодня</div></header>
+<nav>
+<button class="active" data-tab="study">Учить</button><button data-tab="words">Слова</button><button data-tab="add">Добавить</button><button data-tab="stats">Прогресс</button>
+</nav>
+
+<section class="panel active" id="study">
+<div class="stats">
+<div class="stat"><b id="dueCount">0</b><span>На сегодня</span></div>
+<div class="stat"><b id="knownCount">0</b><span>Изучаю</span></div>
+<div class="stat"><b id="doneCount">0</b><span>Сегодня сделано</span></div>
+</div>
+<div class="card" id="flashcard">
+<div class="eyebrow" id="cardEyebrow">Карточка 1</div>
+<div class="hanzi" id="cardHanzi">你好</div>
+<div class="pinyin" id="cardPinyin">nǐ hǎo</div>
+<div class="meaning" id="cardMeaning" hidden>Привет</div>
+<div class="example" id="cardExample" hidden>你好！(Nǐ hǎo!) — Привет!</div>
+<div class="hint" id="cardHint">Сначала вспомни значение, затем открой ответ.</div>
+</div>
+<div class="buttons" id="revealButtons">
+<button class="btn primary" id="revealBtn">Показать ответ</button><button class="btn secondary" id="skipBtn">Отложить</button>
+</div>
+<div class="rating-buttons" id="ratingButtons" hidden>
+<button class="btn again" data-rating="again">Забыл</button><button class="btn hard" data-rating="hard">Трудно</button><button class="btn good" data-rating="good">Хорошо</button><button class="btn easy" data-rating="easy">Легко</button>
+</div>
+<p class="note" style="text-align:center">Пытайся вспомнить ответ до открытия. Это помогает памяти сильнее, чем простое перечитывание.</p>
+</section>
+
+<section class="panel" id="words">
+<div class="section"><h2>Твой словарь</h2><p class="note">Слова хранятся на этом устройстве. Для переноса на другой телефон экспортируй резервную копию.</p><div class="wordlist" id="wordList"></div></div>
+<div class="section"><h2>Импорт / экспорт</h2><p class="note">CSV должен содержать столбцы: hanzi,pinyin,meaning,example. Можно также импортировать JSON-резервную копию.</p>
+<label class="filelabel">Выбрать CSV или JSON-файл<input id="importFile" type="file" accept=".csv,.json,text/csv,application/json"></label>
+<div class="smallactions" style="margin-top:10px"><button class="btn secondary" id="exportCsv">Экспорт CSV</button><button class="btn secondary" id="exportJson">Резервная копия JSON</button></div>
+</div>
+</section>
+
+<section class="panel" id="add">
+<div class="section"><h2>Добавить слово</h2>
+<form id="addForm">
+<div class="field"><label for="hanzi">Иероглифы / слово *</label><input id="hanzi" required placeholder="例如：能"></div>
+<div class="row2">
+<div class="field"><label for="pinyin">Пиньинь с тонами *</label><input id="pinyin" required placeholder="néng"></div>
+<div class="field"><label for="meaning">Перевод *</label><input id="meaning" required placeholder="мочь, быть способным"></div>
+</div>
+<div class="field"><label for="example">Пример (необязательно)</label><textarea id="example" placeholder="你能来吗？(Nǐ néng lái ma?) — Ты можешь прийти?"></textarea></div>
+<button class="btn primary" type="submit" style="width:100%">Сохранить слово</button>
+</form></div>
+<div class="section"><h2>Формат импорта</h2><p class="note">Создай CSV в таблице или текстовом редакторе, сохрани в UTF-8. Пример:</p>
+<pre style="white-space:pre-wrap;background:#f0ece4;padding:12px;border-radius:10px;font-size:12px">hanzi,pinyin,meaning,example
+你好,nǐ hǎo,привет,你好！(Nǐ hǎo!) — Привет!
+谢谢,xièxie,спасибо,谢谢你！(Xièxie nǐ!) — Спасибо тебе!</pre>
+</div>
+</section>
+
+<section class="panel" id="stats">
+<div class="stats">
+<div class="stat"><b id="totalStat">0</b><span>Всего слов</span></div>
+<div class="stat"><b id="learnedStat">0</b><span>Уже изучаются</span></div>
+<div class="stat"><b id="reviewsStat">0</b><span>Всего повторений</span></div>
+</div>
+<div class="section"><h2>Сегодня</h2><div class="progress"><div id="progressBar"></div></div><p class="note" id="progressText">Сделано 0 карточек сегодня.</p></div>
+<div class="section"><h2>Как работает расписание</h2><p class="note">Это упрощённый SM-2: «Забыл» возвращает карточку на повтор примерно через 10 минут; «Трудно» — примерно через 1 день; «Хорошо» увеличивает интервал; «Легко» увеличивает его сильнее. Сроки сохраняются между сессиями. Алгоритм помогает планировать занятия, но не гарантирует, что слово не забудется.</p></div>
+<div class="section"><button class="btn danger" id="resetBtn" style="width:100%">Сбросить все данные</button><p class="note">Это удалит словарь и историю с этого устройства. Сначала сделай резервную копию, если она нужна.</p></div>
+</section>
+<div class="footer">Работает локально · без аккаунта · без подписки</div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const STORAGE_KEY='hanziFlashcards_v1';
+const DAY=86400000, TEN_MIN=600000;
+const starter=[
+ {hanzi:'你好',pinyin:'nǐ hǎo',meaning:'привет',example:'你好！(Nǐ hǎo!) — Привет!'},
+ {hanzi:'谢谢',pinyin:'xièxie',meaning:'спасибо',example:'谢谢你！(Xièxie nǐ!) — Спасибо тебе!'},
+ {hanzi:'能',pinyin:'néng',meaning:'мочь, быть способным',example:'你能来吗？(Nǐ néng lái ma?) — Ты можешь прийти?'},
+ {hanzi:'我要',pinyin:'wǒ yào',meaning:'я хочу; мне нужно',example:'我要一杯水。(Wǒ yào yì bēi shuǐ.) — Мне стакан воды.'},
+ {hanzi:'多少钱',pinyin:'duōshao qián',meaning:'сколько стоит?',example:'这个多少钱？(Zhège duōshao qián?) — Сколько это стоит?'},
+ {hanzi:'厕所',pinyin:'cèsuǒ',meaning:'туалет',example:'厕所在哪里？(Cèsuǒ zài nǎlǐ?) — Где туалет?'},
+ {hanzi:'可以',pinyin:'kěyǐ',meaning:'можно; мочь',example:'可以吗？(Kěyǐ ma?) — Можно?'},
+ {hanzi:'不要',pinyin:'bú yào',meaning:'не надо; не хочу',example:'我不要。(Wǒ bú yào.) — Мне не надо.'}
+];
+let db=loadDB(), current=null, revealed=false, sessionDone=0, sessionSeen=new Set(), toastTimer;
+function freshWord(w){return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),hanzi:String(w.hanzi||'').trim(),pinyin:String(w.pinyin||'').trim(),meaning:String(w.meaning||'').trim(),example:String(w.example||'').trim(),created:Date.now(),due:Date.now(),interval:0,repetitions:0,ease:2.5,reviews:0,lastReviewed:0}}
+function loadDB(){try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY));if(d&&Array.isArray(d.words))return d}catch(e){}return {words:starter.map(freshWord),reviewTotal:0}}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(db));renderStats()}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function isDue(w){return (w.due||0)<=Date.now()}
+function dueWords(){return db.words.filter(isDue).sort((a,b)=>(a.due||0)-(b.due||0))}
+function nextCard(){const list=dueWords().filter(w=>!sessionSeen.has(w.id));current=list[0]||null;revealed=false;renderCard()}
+function renderCard(){
+ const due=dueWords().length;
+ document.getElementById('dueCount').textContent=due;
+ document.getElementById('knownCount').textContent=db.words.length;
+ document.getElementById('doneCount').textContent=sessionDone;
+ const meaning=document.getElementById('cardMeaning'), example=document.getElementById('cardExample');
+ if(!current){document.getElementById('cardEyebrow').textContent='На сегодня всё';document.getElementById('cardHanzi').textContent='完成';document.getElementById('cardPinyin').textContent='wánchéng';meaning.hidden=false;meaning.textContent='Отличная работа!';example.hidden=false;example.textContent=due?`Осталось карточек: ${due}. Нажми «Начать снова», чтобы продолжить.`:'На сегодня карточек больше нет. Добавь новые слова или возвращайся завтра.';document.getElementById('cardHint').textContent='';document.getElementById('revealButtons').innerHTML='<button class="btn primary" id="restartBtn">Начать снова</button><button class="btn secondary" id="addFromDone">Добавить слово</button>';document.getElementById('ratingButtons').hidden=true;document.getElementById('restartBtn').onclick=()=>{sessionSeen.clear();nextCard()};document.getElementById('addFromDone').onclick=()=>activateTab('add');return}
+ document.getElementById('cardEyebrow').textContent=`На повторение · ${sessionDone+1}`;
+ document.getElementById('cardHanzi').textContent=current.hanzi;document.getElementById('cardPinyin').textContent=current.pinyin;
+ meaning.hidden=!revealed;meaning.textContent=current.meaning;example.hidden=!revealed;example.textContent=current.example||'Пример пока не добавлен.';
+ document.getElementById('cardHint').textContent=revealed?'Выбери, насколько легко вспомнил ответ.':'Сначала вспомни значение, затем открой ответ.';
+ document.getElementById('revealButtons').hidden=revealed;document.getElementById('ratingButtons').hidden=!revealed;
+}
+function renderStats(){
+ const words=db.words;document.getElementById('totalStat').textContent=words.length;document.getElementById('learnedStat').textContent=words.filter(w=>w.repetitions>0).length;document.getElementById('reviewsStat').textContent=db.reviewTotal||0;
+ const today=Number(localStorage.getItem('hanziDone_'+todayKey())||0);document.getElementById('progressText').textContent=`Сделано ${today} карточек сегодня.`;document.getElementById('progressBar').style.width=Math.min(100,today/20*100)+'%';
+}
+function renderWordList(){const el=document.getElementById('wordList');el.innerHTML='';if(!db.words.length){el.innerHTML='<div class="empty">Слов пока нет. Добавь первое слово на вкладке «Добавить».</div>';return}
+ db.words.forEach(w=>{const row=document.createElement('div');row.className='word';const details=document.createElement('div');details.className='details';const strong=document.createElement('strong');strong.textContent=w.hanzi;const small=document.createElement('small');small.textContent=`${w.pinyin} · ${w.meaning} · ${isDue(w)?'пора повторить':'следующее повторение: '+new Date(w.due).toLocaleDateString()}`;details.append(strong,small);const del=document.createElement('button');del.textContent='Удалить';del.onclick=()=>{if(confirm(`Удалить ${w.hanzi}?`)){db.words=db.words.filter(x=>x.id!==w.id);save();renderWordList();if(current&&current.id===w.id)nextCard();showToast('Слово удалено')}};row.append(details,del);el.append(row)})
+}
+function showToast(s){const t=document.getElementById('toast');t.textContent=s;t.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',2600)}
+function activateTab(name){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===name));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));if(name==='words')renderWordList();if(name==='stats')renderStats();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>activateTab(b.dataset.tab));
+document.getElementById('revealBtn').onclick=()=>{revealed=true;renderCard()};
+document.getElementById('skipBtn').onclick=()=>{if(current){sessionSeen.add(current.id);nextCard()}};
+document.querySelectorAll('[data-rating]').forEach(b=>b.onclick=()=>{
+ if(!current)return;const r=b.dataset.rating,w=current,now=Date.now();
+ if(r==='again'){w.interval=0;w.repetitions=0;w.due=now+TEN_MIN;w.ease=Math.max(1.3,w.ease-.2)}
+ else if(r==='hard'){w.interval=w.interval<1?1:Math.max(1,Math.round(w.interval*1.2));w.repetitions++;w.ease=Math.max(1.3,w.ease-.15);w.due=now+(w.interval||1)*DAY}
+ else if(r==='good'){w.interval=w.repetitions===0?1:w.repetitions===1?3:Math.max(1,Math.round(w.interval*w.ease));w.repetitions++;w.due=now+w.interval*DAY}
+ else {w.interval=w.repetitions===0?3:w.repetitions===1?5:Math.max(2,Math.round(w.interval*(w.ease+.3)));w.repetitions++;w.ease=Math.min(3.2,w.ease+.15);w.due=now+w.interval*DAY}
+ w.reviews=(w.reviews||0)+1;w.lastReviewed=now;db.reviewTotal=(db.reviewTotal||0)+1;sessionDone++;sessionSeen.add(w.id);
+ localStorage.setItem('hanziDone_'+todayKey(),String(Number(localStorage.getItem('hanziDone_'+todayKey())||0)+1));save();nextCard()
+});
+document.getElementById('addForm').onsubmit=e=>{e.preventDefault();const w=freshWord({hanzi:document.getElementById('hanzi').value,pinyin:document.getElementById('pinyin').value,meaning:document.getElementById('meaning').value,example:document.getElementById('example').value});if(db.words.some(x=>x.hanzi===w.hanzi)){if(!confirm('Такое слово уже есть. Всё равно добавить?'))return}db.words.push(w);save();e.target.reset();renderWordList();showToast('Слово добавлено!');activateTab('study');sessionSeen.clear();nextCard()};
+function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+document.getElementById('exportJson').onclick=()=>download('hanzi-backup.json',JSON.stringify(db,null,2),'application/json');
+document.getElementById('exportCsv').onclick=()=>{const q=v=>'"'+String(v||'').replace(/"/g,'""')+'"';const rows=[['hanzi','pinyin','meaning','example'],...db.words.map(w=>[w.hanzi,w.pinyin,w.meaning,w.example])];download('hanzi-words.csv','\uFEFF'+rows.map(r=>r.map(q).join(',')).join('\r\n'),'text/csv;charset=utf-8')};
+function parseCSV(text){text=text.replace(/^\uFEFF/,'');const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell=''}else cell+=c}if(cell.length||row.length){row.push(cell);rows.push(row)}return rows}
+document.getElementById('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const text=await file.text();let incoming=[];if(file.name.toLowerCase().endsWith('.json')){const parsed=JSON.parse(text);incoming=Array.isArray(parsed)?parsed:(parsed.words||[])}else{const rows=parseCSV(text);if(!rows.length)throw Error('Файл пустой');let headers=rows.shift().map(x=>x.trim().toLowerCase());const aliases={hanzi:['hanzi','chinese','word','иероглиф','слово'],pinyin:['pinyin','пиньинь'],meaning:['meaning','translation','перевод','значение'],example:['example','пример']};const indexes={};for(const key in aliases)indexes[key]=headers.findIndex(h=>aliases[key].includes(h));if(indexes.hanzi<0||indexes.pinyin<0||indexes.meaning<0){headers=['hanzi','pinyin','meaning','example'];rows.unshift(headers);indexes.hanzi=0;indexes.pinyin=1;indexes.meaning=2;indexes.example=3}incoming=rows.map(r=>({hanzi:r[indexes.hanzi]||'',pinyin:r[indexes.pinyin]||'',meaning:r[indexes.meaning]||'',example:indexes.example>=0?(r[indexes.example]||''):''}))}
+ let count=0;incoming.forEach(x=>{if(x.hanzi&&x.pinyin&&x.meaning){db.words.push(freshWord(x));count++}});save();renderWordList();showToast(`Импортировано слов: ${count}`);e.target.value=''}catch(err){alert('Не удалось импортировать файл. Проверь формат CSV или JSON. Ошибка: '+err.message);e.target.value=''}};
+document.getElementById('resetBtn').onclick=()=>{if(confirm('Точно удалить все слова и статистику? Это нельзя отменить.')){db={words:[],reviewTotal:0};save();sessionDone=0;sessionSeen.clear();nextCard();renderWordList();showToast('Данные сброшены')}};
+document.getElementById('todayPill').textContent=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'short'});
+renderStats();renderWordList();nextCard();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>

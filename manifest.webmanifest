@@ -1,0 +1,10 @@
+{
+  "name": "汉语 карточки — китайский каждый день",
+  "short_name": "汉语 карточки",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#f7f4ee",
+  "lang": "ru",
+  "description": "Бесплатные карточки китайских слов с интервальными повторениями"
+}
